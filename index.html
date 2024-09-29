@@ -1,14 +1,88 @@
+<head>
 <style>
-  body{
-    background-color: black;
-    color: green;
-  }
+body{background-color: black;color: green;}
+body, input, button, select{
+	font-family: cambria;
+	font-size: 14px;
+	padding: 5px;
+}
+#bin_1{
+	margin-top: 200px;
+}
 </style>
-<title>website.</title>
+<title>Match the Insurance Term</title>
+</head>
 <body>
-<center>
-
-  hi!
-
-</center>
+<p>Score: <span id="score_disp"></span></p>
+<div id="bin_1">
+	<center>
+	<p id="d_slot"></p>
+	<select id="a_sel"></select>
+	<button onclick="chk_ans()">Submit</button>
+	<button onclick="not_sure()">Not Sure</button>	
+	</center>
+</div>
 </body>
+<script> 
+let score = 0;
+score_disp.innerHTML = score;
+let cur_ans;
+function not_sure(){
+	alert("The answer was: " + cur_ans);
+	if(score > 0){
+		score = score - 25;
+		score_disp.innerHTML = score;
+	}
+	ask_q();
+}
+function chk_ans(){
+	if(cur_ans == a_sel.value){
+		ask_q(); 
+		score = score + 25;
+		score_disp.innerHTML = score;
+	}
+	else{
+		if(score > 0){
+			score = score - 25;
+			score_disp.innerHTML = score;
+		}
+	}
+}
+function ask_q(){
+	let rand_term = Math.floor(Math.random() * term_bank.length);
+	d_slot.innerHTML = term_bank[rand_term].d;
+	cur_ans = term_bank[rand_term].a;
+
+	a_sel.innerHTML = "<option>-----</option>";
+	for(let i = 0; i < term_bank.length; i++){
+		a_sel.innerHTML += "<option>" + term_bank[i].a + "</option>";
+	}
+}
+let term_bank = []; 
+term_bank[0]={a:"Premium",d:"The amount paid for an insurance policy."};
+term_bank[1]={a:"Policy",d:"A contract detailing insurance coverage."};
+term_bank[2]={a:"Deductible",d:"Amount the insured pays before coverage begins."};
+term_bank[3]={a:"Claim",d:"A formal request for payment under an insurance policy."};
+term_bank[4]={a:"Underwriting",d:"Process of evaluating and pricing insurance risks."};
+term_bank[5]={a:"Coverage",d:"The protection provided by an insurance policy."};
+term_bank[6]={a:"Liability",d:"Legal responsibility for damages or injuries."};
+term_bank[7]={a:"Broker",d:"An intermediary between insurers and clients."};
+term_bank[8]={a:"Risk",d:"Potential for loss or damage."};
+term_bank[9]={a:"Endorsement",d:"An amendment to an insurance policy."};
+term_bank[10]={a:"Exclusion",d:"Specific risks or circumstances not covered by a policy."};
+term_bank[11]={a:"Limit",d:"Maximum amount an insurer will pay for a covered loss."};
+term_bank[12]={a:"Renewal",d:"Extension of an insurance policy for a new term."};
+term_bank[13]={a:"Quote",d:"Estimated cost of an insurance policy."};
+term_bank[14]={a:"Peril",d:"A specific risk or cause of loss."};
+term_bank[15]={a:"Insured",d:"The person or entity protected by an insurance policy."};
+term_bank[16]={a:"Insurer",d:"The company providing insurance coverage."};
+term_bank[17]={a:"Rider",d:"An add-on to a policy that provides additional coverage."};
+term_bank[18]={a:"Binder",d:"Temporary proof of insurance."};
+term_bank[19]={a:"Actuary",d:"Professional who analyzes financial costs of risk and uncertainty."};
+term_bank[20]={a:"Commission",d:"Fee paid to brokers for selling insurance policies."};
+term_bank[21]={a:"Reinsurance",d:"Insurance purchased by insurers to manage risk."};
+term_bank[22]={a:"Loss Ratio",d:"Claims paid plus adjustment expenses divided by earned premiums."};
+term_bank[23]={a:"Indemnity",d:"Compensation for damage or loss."};
+term_bank[24]={a:"Subrogation",d:"An insurer's right to recover claims payments from a third party."};
+ask_q();
+</script>
